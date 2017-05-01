@@ -24,12 +24,25 @@ var Page = db.define('page', {
   date: {
     type: Sequelize.DATE,
     defaultValue: Sequelize.NOW
+  },
+  tags: {
+    type: Sequelize.STRING
   }
 }, {
   getterMethods: {
     route: function () {return '/wiki/' + this.urlTitle}
   }
 });
+
+Page.hook('beforeValidate', function(page, options) {
+  if (page.title) {
+    page.urlTitle = page.title.replace(/\s+/g, '_').replace(/\W/g, '');
+  }
+  else {
+    page.urlTitle = Math.random().toString(36).substring(2, 7);
+  }
+});
+
 
 var User = db.define('user', {
   name: {
@@ -44,6 +57,11 @@ var User = db.define('user', {
     }
   }
 });
+
+
+Page.belongsTo(User, { as: 'author' });
+
+
 
 module.exports = {
   Page: Page,
