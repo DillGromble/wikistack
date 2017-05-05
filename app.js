@@ -21,9 +21,9 @@ app.get('/', function (req, res, next) {
 })
 
 
-models.db.sync({force: true})
-.then( _ => models.User.sync({force: true}))
-.then( _ => models.Page.sync({force: true}))
+models.db.sync()
+.then( _ => models.User.sync())
+.then( _ => models.Page.sync())
 .then( _ => {
     app.listen(3000, function () {
         console.log('Server is listening on port 3000....');

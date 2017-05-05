@@ -22,6 +22,9 @@ router.post('/', function (req, res, next) {
     }
   })
   .spread( function (user, created) {
+    req.body.tags = req.body.tags.split(',') //.map( e => e.trim());
+    console.log(req.body.tags);
+
     var page = Page.build({
       title: req.body.title,
       content: req.body.content,

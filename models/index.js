@@ -26,7 +26,7 @@ var Page = db.define('page', {
     defaultValue: Sequelize.NOW
   },
   tags: {
-    type: Sequelize.STRING
+    type: Sequelize.ARRAY(Sequelize.TEXT)
   }
 }, {
   getterMethods: {
